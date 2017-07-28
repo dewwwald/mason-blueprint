@@ -29,11 +29,11 @@ function getElementsDataTransporter(elements) {
 
 function determineInitializerFunction(initialItem) {
   if (typeof initialItem === 'string') {
-    return getSelectorDataTransporter.bind(null, initialItem);
+    return getSelectorDataTransporter(initialItem);
   } else if (initialItem.length && initialItem.length  > 0) {
-    return getElementsDataTransporter.bind(null, initialItem);
+    return getElementsDataTransporter(initialItem);
   } else if (typeof initialItem === 'object') {
-    return getElementsDataTransporter.bind(null, [initialItem]);
+    return getElementsDataTransporter([initialItem]);
   }
 }
 
@@ -47,7 +47,6 @@ function MasonBlueprint(initialItem) {
 
   return {
     masonBlueprints: MasonBlueprintGenerator(dataTransporter),
-
   };
 }
 

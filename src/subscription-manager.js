@@ -7,7 +7,6 @@ function getSubscribers() {
 function addSubscriber(subscriber) {
   let subscriberIndex = subscriptions.length
   subscriptions.push(subscriber);
-  console.log(subscriptions);
   return {
     removeSubscriber: removeSubscriber.bind(null, subscriberIndex)
   };
