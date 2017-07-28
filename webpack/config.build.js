@@ -1,34 +1,32 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
-const HotModuleReplacementPlugin = webpack.HotModuleReplacementPlugin;
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+
 
 module.exports = {
   entry: {
-    main: './src/index.js',
-    babel: 'babel-polyfill'
-  },
+    'mason-blueprint': './src/mason-blueprint.js'
+  }
 
-  devtool: 'inline-source-map',
+  , output: {
+    filename: '[name].js'
+    , path: path.resolve(__dirname, '../build')
+    , libraryTarget: 'umd'
+  }
 
-  output: {
-    filename: 'mason-blueprint.js',
-    path: path.resolve(__dirname, 'test'),
-    libraryTarget: 'umd',
-  },
-
-  module: {
+  , module: {
     loaders: [{
-      test: /\.js$/,
-      loader: 'babel-loader',
-      query: {
-        cacheDirectory: 'babel_cache',
-        presets: ['es2015']
+      test: /\.js$/
+      , loader: 'babel-loader'
+      , query: {
+        cacheDirectory: 'babel_cache'
+        , presets: ['es2015']
       }
-    }],
-  },
+    }]
+  }
 
-  plugins: [
-	  new HtmlWebpackPlugin({})
+  , plugins: [
+    new UglifyJSPlugin()
   ]
 };
