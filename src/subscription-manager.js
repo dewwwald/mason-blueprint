@@ -1,7 +1,7 @@
 const subscriptions = [];
 
 function getSubscribers() {
-  return subscriptions;
+  return subscriptions.filter(sub => typeof sub !== 'undefined');
 }
 
 function addSubscriber(subscriber) {
@@ -13,7 +13,7 @@ function addSubscriber(subscriber) {
 }
 
 function removeSubscriber(subscriberIndex) {
-
+  subscriptions.splice(subscriberIndex, 1);
 }
 
 const SubscriptionManager = {

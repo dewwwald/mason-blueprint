@@ -1,4 +1,5 @@
 import SubscriptionManager from './subscription-manager';
+import EventListiners from './event-listiners';
 
 function masonBlueprintUpdated() {
   subscriptions.forEach(subscription => {
@@ -17,9 +18,10 @@ function emitMasonBlueprint(dataTransporter) {
 }
 
 function subscribeMasonBlueprintUpdated(dataTransporter, callback) {
-  SubscriptionManager
+  let subscription = SubscriptionManager
     .addSubscriber(callback);
   emitMasonBlueprint(dataTransporter);
+  return subscription;
 }
 
 function findShortestCol(array) {
@@ -29,8 +31,7 @@ function findShortestCol(array) {
 
 function buildMasonBlueprint(mason) {
   let gridWidht = mason.element.clientWidth;
-  let columnCount = gridWidht / mason.element.children[0].clientWidth;
-  columnCount = columnCount - columnCount % 1;
+  let columnCount = Math.round(gridWidht / mason.element.children[0].clientWidth);
   let blueprint = [];
   let rowCol = 0;
   let row = 0;
@@ -69,6 +70,7 @@ function getMasonBlueprint(dataTransporter) {
 
 function MasonBlueprintGenerator(dataTransporter) {
   getMasonBlueprint(dataTransporter);
+  EventListiners.addResizeListiner(getMasonBlueprint.bind(null, dataTransporter))
   return {
     reSelectElements: reSelectElements.bind(null, dataTransporter),
     getMasonBlueprint: getMasonBlueprint.bind(null, dataTransporter),

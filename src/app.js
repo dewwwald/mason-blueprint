@@ -2,7 +2,7 @@ import MasonBlueprint from './mason-blueprint'
 
 let element = document.querySelector('.g.g--masonary');
 let masonBlueprint = MasonBlueprint(element).masonBlueprints;
-masonBlueprint.subscribe((data) => {
+let subscription = masonBlueprint.subscribe((data) => {
   let elements = [...element.children];
   element.style.position = 'relative';
   element.style.height = element.clientHeight + 'px';
