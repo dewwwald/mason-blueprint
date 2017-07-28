@@ -1,0 +1,22 @@
+{
+  "name": "mason-blueprint",
+  "version": "0.0.0-alpha.1",
+  "description": "A masonary grid algorithm wrapper. Consumes an element and outputs the children mason grid styling data.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dewwwald/mason-blueprint.git"
+  },
+  "keywords": [
+    "JavaScript"
+  ],
+  "author": "laubscher.dewald@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dewwwald/mason-blueprint/issues"
+  },
+  "homepage": "https://github.com/dewwwald/mason-blueprint#readme"
+}
