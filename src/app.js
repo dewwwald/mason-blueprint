@@ -1,3 +1,4 @@
 import MasonBlueprint from './mason-blueprint'
 
-MasonBlueprint();
+let masonBlueprint = MasonBlueprint('.g.g--masonary').masonBlueprints;
+masonBlueprint.reSelectElements();
