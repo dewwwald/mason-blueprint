@@ -12,7 +12,7 @@ function reSelectElements(dataTransporter) {
 
 function emitMasonBlueprint(dataTransporter) {
   SubscriptionManager.getSubscribers().forEach(subscription => {
-    subscription(dataTransporter);
+    subscription(dataTransporter.mason);
   });
 }
 
@@ -22,6 +22,11 @@ function subscribeMasonBlueprintUpdated(dataTransporter, callback) {
   emitMasonBlueprint(dataTransporter);
 }
 
+function findShortestCol(array) {
+  return array.reduce(
+    (pre, val, index) => array[index] < array[pre] ? index : pre, 0);
+}
+
 function buildMasonBlueprint(mason) {
   let gridWidht = mason.element.clientWidth;
   let columnCount = gridWidht / mason.element.children[0].clientWidth;
@@ -29,12 +34,22 @@ function buildMasonBlueprint(mason) {
   let blueprint = [];
   let rowCol = 0;
   let row = 0;
+  let topOffset = Array(columnCount).fill(0);
 
-  mason.element.children.forEach(childElement => {
+  [...mason.element.children].forEach((childElement, index) => {
     let top;
+    let shortestCol = findShortestCol(topOffset);
     if (row > 0) {
+      top = topOffset[shortestCol];
+    } else {
       top = 0;
     }
+
+    topOffset[shortestCol] = topOffset[shortestCol] + childElement.clientHeight;
+    blueprint.push({
+      left: shortestCol / columnCount * 100 + '%',
+      top: top + 'px',
+    });
     rowCol = (rowCol + 1);
     if (rowCol === columnCount) row++;
     rowCol = rowCol % columnCount;
