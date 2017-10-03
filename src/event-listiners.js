@@ -10,6 +10,9 @@ class EventListiner {
   addListiner(listiner) {
     let listinerIndex = this.listiners.length
     this.listiners.push(listiner);
+    if (typeof window === 'undefined') {
+      listiner();
+    }
     return {
       removelistiner: this.removelistiner.bind(this, listinerIndex)
     };
@@ -22,11 +25,13 @@ class EventListiner {
 
 let resizeListiner = new EventListiner();
 
-window.addEventListener('resize', function masonResize() {
-  resizeListiner.getListiners().forEach(listiner => {
-    listiner();
-  });
-}, false);
+if (typeof window !== 'undefined') {
+  window.addEventListener('resize', function masonResize() {
+    resizeListiner.getListiners().forEach(listiner => {
+      listiner();
+    });
+  }, false);
+}
 
 const EventListiners = {
   addResizeListiner: resizeListiner.addListiner.bind(resizeListiner)
